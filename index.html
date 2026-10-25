@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thoriso Gwangwa | Software Developer & Project Administrator</title>
+  <meta name="description" content="Portfolio of Thoriso Tumelo Gwangwa, software developer and project administrator based in Limpopo, South Africa.">
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #171e26;
+      --surface-2: #1f2832;
+      --text: #e8edf2;
+      --muted: #9aa7b4;
+      --accent: #4fd1a5;
+      --accent-2: #5aa9ff;
+      --border: #2a3541;
+      --radius: 14px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f8fa;
+        --surface: #ffffff;
+        --surface-2: #eef2f6;
+        --text: #17202a;
+        --muted: #55636f;
+        --accent: #0f9d74;
+        --accent-2: #1f6fd1;
+        --border: #dbe2e9;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+    /* Nav */
+    header.nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+    .logo { font-weight: 700; letter-spacing: .3px; color: var(--text); }
+    .logo span { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 22px; }
+    nav a { color: var(--muted); font-size: .95rem; }
+    nav a:hover { color: var(--text); text-decoration: none; }
+
+    /* Hero */
+    .hero { padding: 80px 0 60px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: center; }
+    .eyebrow { color: var(--accent); font-weight: 600; font-size: .9rem; letter-spacing: 1.2px; text-transform: uppercase; }
+    h1 { font-size: clamp(2.1rem, 5vw, 3.2rem); line-height: 1.15; margin: 10px 0 16px; }
+    h1 .grad { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lead { color: var(--muted); font-size: 1.1rem; max-width: 560px; }
+    .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-block; padding: 11px 22px; border-radius: 999px; font-weight: 600; font-size: .95rem;
+      border: 1px solid var(--border); color: var(--text); background: var(--surface);
+    }
+    .btn:hover { text-decoration: none; border-color: var(--accent); }
+    .btn.primary { background: var(--accent); color: #07140f; border-color: var(--accent); }
+    .avatar-wrap {
+      width: 260px; height: 260px; border-radius: 50%; padding: 5px; justify-self: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+    .avatar {
+      width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--surface-2);
+      display: flex; align-items: center; justify-content: center; font-size: 4rem; font-weight: 700; color: var(--accent);
+    }
+
+    /* Sections */
+    section { padding: 64px 0; }
+    section.alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    h2 { font-size: 1.8rem; margin-bottom: 8px; }
+    .sub { color: var(--muted); margin-bottom: 36px; max-width: 640px; }
+
+    .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+    .card {
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;
+    }
+    section.alt .card { background: var(--bg); }
+    .card h3 { margin-bottom: 8px; font-size: 1.15rem; }
+    .card p, .card li { color: var(--muted); font-size: .97rem; }
+    .card ul { margin: 10px 0 0 18px; }
+
+    /* Skills */
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      padding: 7px 14px; border-radius: 999px; background: var(--surface-2);
+      border: 1px solid var(--border); font-size: .9rem;
+    }
+    .skill-group { margin-bottom: 28px; }
+    .skill-group h3 { font-size: 1rem; color: var(--muted); font-weight: 600; margin-bottom: 12px; }
+
+    /* Projects */
+    .projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+    .project { display: flex; flex-direction: column; transition: transform .15s, border-color .15s; }
+    .project:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .tag {
+      align-self: flex-start; font-size: .75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+      margin-bottom: 12px; background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent);
+    }
+    .tag.wip { background: color-mix(in srgb, var(--accent-2) 18%, transparent); color: var(--accent-2); }
+    .project .stack { margin-top: 14px; font-size: .82rem; color: var(--accent-2); }
+    .project .links { margin-top: auto; padding-top: 16px; display: flex; gap: 16px; font-size: .9rem; font-weight: 600; }
+
+    /* Timeline */
+    .timeline { border-left: 2px solid var(--border); margin-left: 8px; }
+    .t-item { position: relative; padding: 0 0 30px 26px; }
+    .t-item::before {
+      content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px;
+      border-radius: 50%; background: var(--accent); border: 2px solid var(--bg);
+    }
+    .t-date { color: var(--accent); font-size: .85rem; font-weight: 600; }
+    .t-item h3 { font-size: 1.1rem; margin: 2px 0; }
+    .t-org { color: var(--muted); font-size: .95rem; }
+    .t-item ul { margin: 8px 0 0 18px; color: var(--muted); font-size: .95rem; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+
+    /* Contact */
+    .contact-box { text-align: center; max-width: 560px; margin: 0 auto; }
+    .contact-box .btns { justify-content: center; }
+
+    footer { padding: 28px 0; text-align: center; color: var(--muted); font-size: .88rem; border-top: 1px solid var(--border); }
+
+    @media (max-width: 800px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .avatar-wrap { order: -1; width: 200px; height: 200px; }
+      .lead { margin: 0 auto; }
+      .btns { justify-content: center; }
+      .two-col { grid-template-columns: 1fr; gap: 20px; }
+      nav ul { gap: 14px; }
+      nav a { font-size: .85rem; }
+      .logo { display: none; }
+      .nav-inner { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="#top">Thoriso<span>.</span>dev</a>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Software Developer · Project Administrator</p>
+        <h1>Hi, I'm <span class="grad">Thoriso Gwangwa</span></h1>
+        <p class="lead">
+          I build software and keep projects moving. With a Diploma in Software Development
+          and hands-on experience in administration and technical support, I bring
+          technical skill and organisation to every team I work with.
+        </p>
+        <div class="btns">
+          <a class="btn primary" href="#projects">View my work</a>
+          <a class="btn" href="#contact">Get in touch</a>
+          <!-- Optional: upload your CV as cv.pdf and uncomment the line below -->
+          <!-- <a class="btn" href="cv.pdf" download>Download CV</a> -->
+        </div>
+      </div>
+      <div class="avatar-wrap">
+        <!-- Photo: save it as profile.jpg (or .jpeg/.png/.webp) inside the "image" folder -->
+        <img id="avatar" class="avatar" src="image/Profile.jpeg" alt="Portrait of Thoriso Gwangwa">
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="alt">
+    <div class="container">
+      <h2>What I do</h2>
+      <p class="sub">I work across two sides of a project: building the software and keeping the work organised.</p>
+      <div class="about-grid">
+        <div class="card">
+          <h3>💻 Software Development</h3>
+          <p>I design and build applications using the skills from my IIE Diploma in Software Development at Rosebank College.</p>
+          <ul>
+            <li>C#, Java, JavaScript, PHP</li>
+            <li>HTML &amp; CSS front ends</li>
+            <li>SQL databases</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>📋 Project Administration</h3>
+          <p>I currently work as a Project Administrator at SBV Services, supporting delivery with accuracy, compliance and reliability.</p>
+          <ul>
+            <li>Coordination &amp; documentation</li>
+            <li>Meeting deadlines and procedures</li>
+            <li>Supporting teams and queries</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🛠️ Technical Support</h3>
+          <p>I'm comfortable troubleshooting, setting up and maintaining the systems people depend on every day.</p>
+          <ul>
+            <li>Windows systems &amp; networking</li>
+            <li>Hardware setup &amp; diagnostics</li>
+            <li>Network cabling &amp; configuration</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <h2>Skills</h2>
+      <p class="sub">A mix of development, technical support and people skills.</p>
+
+      <div class="skill-group">
+        <h3>Programming &amp; Databases</h3>
+        <div class="chips">
+          <span class="chip">C#</span><span class="chip">Java</span><span class="chip">JavaScript</span>
+          <span class="chip">PHP</span><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">SQL</span>
+          <span class="chip">Git &amp; GitHub</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>IT &amp; Technical Support</h3>
+        <div class="chips">
+          <span class="chip">IT Support &amp; Troubleshooting</span><span class="chip">Software Installation &amp; Maintenance</span>
+          <span class="chip">Windows Systems</span><span class="chip">Networking</span>
+          <span class="chip">Hardware Setup &amp; Diagnostics</span><span class="chip">Network Cabling</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Professional</h3>
+        <div class="chips">
+          <span class="chip">Microsoft Office (Word, PowerPoint, Excel)</span><span class="chip">Problem Solving</span>
+          <span class="chip">Emotional Intelligence</span><span class="chip">Fast Learner</span>
+          <span class="chip">Customer Service</span><span class="chip">Teamwork</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="alt">
+    <div class="container">
+      <h2>Projects &amp; Builds</h2>
+      <p class="sub">Things I've built and things I'm building right now.</p>
+
+      <div class="projects">
+
+        <!-- ======= EDIT THESE: your projects ======= -->
+        <article class="card project">
+          <span class="tag wip">In development</span>
+          <h3>Scarlet</h3>
+          <p>A game I'm building from the ground up. Playable builds are available to download and try. Add a line here about the genre, the idea and what you're learning from making it.</p>
+          <p class="stack">C# · Game development · Playable builds</p>
+          <div class="links">
+            <a href="https://drive.google.com/drive/folders/14cD5T8rT3x2GY5V3UUT6stjjINDB8kAU?usp=drive_link" target="_blank" rel="noopener">Download builds →</a>
+            <a href="mailto:thorisomatsitela@gmail.com?subject=Source%20code%20review%20request%3A%20Scarlet">Request source code →</a>
+          </div>
+        </article>
+
+        <article class="card project">
+          <span class="tag wip">In development</span>
+          <h3>Dexter</h3>
+          <p>My second game project, with game builds and debug programs to try out. Add a line here about the genre, the idea and what makes it different.</p>
+          <p class="stack">C# · Game development · Builds &amp; debug programs</p>
+          <div class="links">
+            <a href="https://drive.google.com/drive/folders/10A8UTCNAF4yf9a4H10cwy7O48nchxX3z?usp=sharing" target="_blank" rel="noopener">Download builds →</a>
+            <a href="mailto:thorisomatsitela@gmail.com?subject=Source%20code%20review%20request%3A%20Dexter">Request source code →</a>
+          </div>
+        </article>
+        <!-- ======= END EDIT ======= -->
+      </div>
+
+      <p class="sub" style="margin:28px 0 0;">
+        🔒 <strong>Source code is private.</strong> The game builds are free to download, but if you'd like to review the code
+        (for hiring, collaboration or feedback), use the "Request source code" link on a project or <a href="#contact">get in touch</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE & EDUCATION -->
+  <section id="experience">
+    <div class="container">
+      <h2>Experience &amp; Education</h2>
+      <p class="sub">My background so far.</p>
+
+      <div class="two-col">
+        <div>
+          <h3 style="margin-bottom:18px;">Experience</h3>
+          <div class="timeline">
+            <div class="t-item">
+              <div class="t-date">Feb 2026 – Present</div>
+              <h3>Project Administrator</h3>
+              <div class="t-org">SBV Services (Pty) Ltd</div>
+              <ul>
+                <li>Support project delivery with accuracy and attention to detail</li>
+                <li>Ensure compliance with company procedures and time-sensitive protocols</li>
+                <li>Handle internal queries professionally under pressure</li>
+              </ul>
+            </div>
+            <div class="t-item">
+              <div class="t-date">May 2024 – May 2025</div>
+              <h3>Cash Processor</h3>
+              <div class="t-org">SBV Services (Pty) Ltd</div>
+              <ul>
+                <li>Processed large volumes of cash with accuracy and security awareness</li>
+                <li>Followed strict procedures in a high-trust environment</li>
+                <li>Supported internal queries and stayed reliable under pressure</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="margin-bottom:18px;">Education &amp; Training</h3>
+          <div class="timeline">
+            <div class="t-item">
+              <div class="t-date">2021 – 2023</div>
+              <h3>IIE Diploma in Software Development</h3>
+              <div class="t-org">Rosebank College, Braamfontein</div>
+              <ul>
+                <li>Databases (SQL, PHP)</li>
+                <li>Programming (C#, Java, HTML, CSS, JavaScript)</li>
+                <li>Work Integrated Learning</li>
+              </ul>
+            </div>
+            <div class="t-item">
+              <div class="t-date">May 2025</div>
+              <h3>YES4Youth Work Readiness Training</h3>
+              <div class="t-org">Public speaking, business writing, customer service, problem solving</div>
+            </div>
+            <div class="t-item">
+              <div class="t-date">2023</div>
+              <h3>Absa Financial Literacy</h3>
+              <div class="t-org">Short course, IIE Rosebank College</div>
+            </div>
+            <div class="t-item">
+              <div class="t-date">2017 – 2020</div>
+              <h3>Matric</h3>
+              <div class="t-org">Matladi Project High School</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="alt">
+    <div class="container contact-box">
+      <h2>Let's work together</h2>
+      <p class="sub" style="margin-left:auto;margin-right:auto;">
+        I'm open to opportunities where I can contribute, grow and build useful software. Reach out and let's talk.
+      </p>
+      <div class="btns">
+        <a class="btn primary" href="mailto:thorisomatsitela@gmail.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/thoriso-tumelo-gwangwa-03b277293" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">© <span id="year"></span> Thoriso Tumelo Gwangwa. Built with HTML &amp; CSS.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Profile picture: tries common locations, falls back to initials "TG"
+  (function () {
+    var img = document.getElementById('avatar');
+    var folders = ['image/', 'images/', ''];
+    var exts = ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'JPEG', 'PNG'];
+    var tries = [];
+    folders.forEach(function (f) { exts.forEach(function (e) { tries.push(f + 'profile.' + e); }); });
+    var i = 0;
+    img.onerror = function () {
+      i++;
+      if (i < tries.length) { img.src = tries[i]; }
+      else {
+        var d = document.createElement('div');
+        d.className = 'avatar';
+        d.textContent = 'TG';
+        img.replaceWith(d);
+      }
+    };
+    img.src = tries[0];
+  })();
+</script>
+</body>
+</html>
