@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -221,15 +222,32 @@
     }
 
     .avatar-wrap {
+      display: flex;
       width: 260px;
       height: 260px;
+      align-items: center;
+      justify-content: center;
       justify-self: center;
       padding: 5px;
+      overflow: hidden;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
     }
 
     .avatar {
+      display: block;
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--surface-raised);
+      color: var(--accent);
+      font-size: 4rem;
+      font-weight: 700;
+      object-fit: cover;
+    }
+
+    .avatar-fallback {
       display: flex;
       width: 100%;
       height: 100%;
@@ -240,7 +258,6 @@
       color: var(--accent);
       font-size: 4rem;
       font-weight: 700;
-      object-fit: cover;
     }
 
     /* Shared section and card styles */
@@ -516,12 +533,14 @@
     }
   </style>
 </head>
+
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
     <div class="container nav-inner">
       <a class="logo" href="#top" aria-label="Thoriso.dev home">Thoriso<span>.</span>dev</a>
+
       <nav aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="#about">About</a></li>
@@ -539,33 +558,39 @@
       <div class="container hero-grid">
         <div>
           <p class="eyebrow">Software Developer · Project Administrator</p>
+
           <h1>Hi, I'm <span class="gradient-text">Thoriso Gwangwa</span></h1>
+
           <p class="lead">
             I build software and help keep projects organised. With a Diploma in
             Software Development and experience in administration and technical
             support, I bring practical problem-solving and attention to detail to my work.
           </p>
+
           <div class="button-row">
             <a class="btn btn-primary" href="#projects">View my work</a>
             <a class="btn" href="#contact">Get in touch</a>
           </div>
         </div>
 
+        <!-- Profile image: keep the folder and filename capitalization exact. -->
         <div class="avatar-wrap">
-  <img
-    id="avatar"
-    class="avatar"
-    src="Image/Profile.jpeg"
-    alt="Portrait of Thoriso Gwangwa"
-    onerror="this.onerror=null; this.src='./images/profile.jpeg';"
-  >
-</div>
+          <img
+            id="avatar"
+            class="avatar"
+            src="./Image/profile.jpeg"
+            alt="Portrait of Thoriso Gwangwa"
+            loading="eager"
+            onerror="this.onerror=null; this.className='avatar-fallback'; this.removeAttribute('src'); this.alt=''; this.setAttribute('role','img'); this.setAttribute('aria-label','Thoriso Gwangwa'); this.textContent='TG';"
+          >
+        </div>
       </div>
     </div>
 
     <section class="section-alt" id="about">
       <div class="container">
         <h2>What I do</h2>
+
         <p class="section-intro">
           I work across two sides of a project: building software and helping the work stay organised.
         </p>
@@ -615,7 +640,10 @@
     <section id="skills">
       <div class="container">
         <h2>Skills</h2>
-        <p class="section-intro">A mix of software development, technical support and professional skills.</p>
+
+        <p class="section-intro">
+          A mix of software development, technical support and professional skills.
+        </p>
 
         <div class="skill-group">
           <h3>Programming and databases</h3>
@@ -660,6 +688,7 @@
     <section class="section-alt" id="projects">
       <div class="container">
         <h2>Projects and builds</h2>
+
         <p class="section-intro">
           A look at my game development work, including playable builds and tools used during testing.
         </p>
@@ -668,17 +697,21 @@
           <article class="card project-card">
             <span class="project-status">In development</span>
             <h3>Scarlet</h3>
+
             <p>
               A 2D action platformer built in Unity with C#. I am developing its movement,
               combat, enemy behaviour and progression systems alongside playable test builds.
             </p>
+
             <p class="project-stack">C# · Unity · 2D game development</p>
+
             <div class="project-links">
               <a
                 href="https://drive.google.com/drive/folders/14cD5T8rT3x2GY5V3UUT6stjjINDB8kAU?usp=drive_link"
                 target="_blank"
                 rel="noopener noreferrer"
               >Download builds ↗</a>
+
               <a
                 href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=thorisomatsitela%40gmail.com&amp;su=Private%20source%20code%20review%20request%3A%20Scarlet&amp;body=Hello%20Thoriso%2C%0A%0AI%20would%20like%20to%20formally%20request%20access%20to%20the%20private%20source%20code%20for%20Scarlet%20for%20review.%0A%0AMy%20name%3A%20%5BYour%20name%5D%0AOrganisation%20or%20role%3A%20%5BOptional%5D%0AReason%20for%20the%20request%3A%20%5BHiring%2C%20technical%20feedback%2C%20collaboration%2C%20or%20other%5D%0ARequested%20scope%3A%20%5BSpecific%20area%20or%20overall%20review%5D%0A%0AI%20understand%20that%20the%20repository%20is%20private%20and%20will%20respect%20any%20access%20or%20confidentiality%20conditions.%0A%0AThank%20you%2C%0A%5BYour%20name%5D"
                 target="_blank"
@@ -690,17 +723,21 @@
           <article class="card project-card">
             <span class="project-status">Development tools</span>
             <h3>Gameplay Prototypes and Debug Tools</h3>
+
             <p>
               Experimental game builds and small debug programs used to test mechanics,
               investigate issues and support iteration during development.
             </p>
+
             <p class="project-stack">C# · Game prototyping · Debugging</p>
+
             <div class="project-links">
               <a
                 href="https://drive.google.com/drive/folders/10A8UTCNAF4yf9a4H10cwy7O48nchxX3z?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
               >View builds ↗</a>
+
               <a
                 href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=thorisomatsitela%40gmail.com&amp;su=Private%20source%20code%20review%20request%3A%20Gameplay%20Prototypes%20and%20Debug%20Tools&amp;body=Hello%20Thoriso%2C%0A%0AI%20would%20like%20to%20formally%20request%20access%20to%20the%20private%20source%20code%20for%20your%20gameplay%20prototypes%20and%20debug%20tools%20for%20review.%0A%0AMy%20name%3A%20%5BYour%20name%5D%0AOrganisation%20or%20role%3A%20%5BOptional%5D%0AReason%20for%20the%20request%3A%20%5BHiring%2C%20technical%20feedback%2C%20collaboration%2C%20or%20other%5D%0ARequested%20scope%3A%20%5BSpecific%20area%20or%20overall%20review%5D%0A%0AI%20understand%20that%20the%20repository%20is%20private%20and%20will%20respect%20any%20access%20or%20confidentiality%20conditions.%0A%0AThank%20you%2C%0A%5BYour%20name%5D"
                 target="_blank"
@@ -726,6 +763,7 @@
         <div class="two-column-layout">
           <div>
             <h3 class="column-heading">Experience</h3>
+
             <div class="timeline">
               <article class="timeline-item">
                 <div class="timeline-date">Feb 2026 – Present</div>
@@ -753,6 +791,7 @@
 
           <div>
             <h3 class="column-heading">Education and training</h3>
+
             <div class="timeline">
               <article class="timeline-item">
                 <div class="timeline-date">2021 – 2023</div>
@@ -768,7 +807,9 @@
               <article class="timeline-item">
                 <div class="timeline-date">May 2025</div>
                 <h4>YES4Youth Work Readiness Training</h4>
-                <div class="timeline-organisation">Public speaking, business writing, customer service and problem solving</div>
+                <div class="timeline-organisation">
+                  Public speaking, business writing, customer service and problem solving
+                </div>
               </article>
 
               <article class="timeline-item">
@@ -791,10 +832,12 @@
     <section class="section-alt" id="contact">
       <div class="container contact-box">
         <h2>Let's work together</h2>
+
         <p class="section-intro">
           I am open to opportunities where I can contribute, learn and build useful software.
           Get in touch to discuss a role, collaboration or project.
         </p>
+
         <div class="button-row">
           <a
             class="btn btn-primary"
@@ -802,12 +845,14 @@
             target="_blank"
             rel="noopener noreferrer"
           >Email me ↗</a>
+
           <a
             class="btn"
             href="https://www.linkedin.com/in/thoriso-tumelo-gwangwa-03b277293"
             target="_blank"
             rel="noopener noreferrer"
           >LinkedIn ↗</a>
+
           <a
             class="btn"
             href="https://github.com/ThorisoG"
@@ -827,40 +872,22 @@
   </footer>
 
   <script>
-    // Keep the copyright year current without editing the page each year.
+    // Keep the copyright year current.
     document.querySelector("#year").textContent = new Date().getFullYear();
 
-    // Try a few common file names before showing initials if no portrait is available.
+    // Profile image fallback.
+    // IMPORTANT: This code does not overwrite the image's src.
     const avatar = document.querySelector("#avatar");
-    const profileFolders = ["image/", "images", ""];
-    const profileExtensions = ["jpg", "jpeg", "png", "webp"];
-    const profileImagePaths = profileFolders.flatMap((folder) =>
-      profileExtensions.map((extension) => {
-        const separator = folder && !folder.endsWith("/") ? "/" : "";
-        return `${folder}${separator}profile.${extension}`;
-      })
-    );
 
-    let imagePathIndex = 0;
-
-    avatar.addEventListener("error", () => {
-      imagePathIndex += 1;
-
-      if (imagePathIndex < profileImagePaths.length) {
-        avatar.src = profileImagePaths[imagePathIndex];
-        return;
-      }
-
-      const fallback = document.createElement("div");
-      fallback.className = "avatar";
-      fallback.setAttribute("role", "img");
-      fallback.setAttribute("aria-label", "Thoriso Gwangwa");
-      fallback.textContent = "TG";
-      avatar.replaceWith(fallback);
+    avatar.addEventListener("error", function () {
+      this.onerror = null;
+      this.className = "avatar-fallback";
+      this.removeAttribute("src");
+      this.alt = "";
+      this.setAttribute("role", "img");
+      this.setAttribute("aria-label", "Thoriso Gwangwa");
+      this.textContent = "TG";
     });
-
-    // Start the fallback sequence after registering the error handler.
-    avatar.src = profileImagePaths[0];
   </script>
 </body>
 </html>
