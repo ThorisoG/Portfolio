@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -241,9 +240,6 @@
       flex-shrink: 0;
       border-radius: 50%;
       background: var(--surface-raised);
-      color: var(--accent);
-      font-size: 4rem;
-      font-weight: 700;
       object-fit: cover;
     }
 
@@ -258,6 +254,10 @@
       color: var(--accent);
       font-size: 4rem;
       font-weight: 700;
+    }
+
+    .avatar-fallback[hidden] {
+      display: none;
     }
 
     /* Shared section and card styles */
@@ -573,16 +573,23 @@
           </div>
         </div>
 
-        <!-- Profile image: keep the folder and filename capitalization exact. -->
+        <!--
+          Profile image: loaded straight from your GitHub profile picture, so
+          changing your avatar on GitHub updates this site automatically.
+          If it can't load, the "TG" initials badge below is shown instead.
+        -->
         <div class="avatar-wrap">
           <img
             id="avatar"
             class="avatar"
-            src="./Image/profile.jpeg"
+            src="https://github.com/ThorisoG.png?size=520"
+            width="260"
+            height="260"
             alt="Portrait of Thoriso Gwangwa"
             loading="eager"
-            onerror="this.onerror=null; this.className='avatar-fallback'; this.removeAttribute('src'); this.alt=''; this.setAttribute('role','img'); this.setAttribute('aria-label','Thoriso Gwangwa'); this.textContent='TG';"
+            referrerpolicy="no-referrer"
           >
+          <div id="avatar-fallback" class="avatar-fallback" role="img" aria-label="Thoriso Gwangwa" hidden>TG</div>
         </div>
       </div>
     </div>
@@ -875,19 +882,21 @@
     // Keep the copyright year current.
     document.querySelector("#year").textContent = new Date().getFullYear();
 
-    // Profile image fallback.
-    // IMPORTANT: This code does not overwrite the image's src.
+    // Profile image fallback: if the GitHub avatar can't load, show the "TG" badge.
     const avatar = document.querySelector("#avatar");
+    const avatarFallback = document.querySelector("#avatar-fallback");
 
-    avatar.addEventListener("error", function () {
-      this.onerror = null;
-      this.className = "avatar-fallback";
-      this.removeAttribute("src");
-      this.alt = "";
-      this.setAttribute("role", "img");
-      this.setAttribute("aria-label", "Thoriso Gwangwa");
-      this.textContent = "TG";
-    });
+    function showAvatarFallback() {
+      avatar.hidden = true;
+      avatarFallback.hidden = false;
+    }
+
+    avatar.addEventListener("error", showAvatarFallback);
+
+    // Covers the case where the image already failed before this script ran.
+    if (avatar.complete && avatar.naturalWidth === 0) {
+      showAvatarFallback();
+    }
   </script>
 </body>
 </html>
